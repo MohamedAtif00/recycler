@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Companies</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Display Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of companies">
+          <td>{{ company.displayName }}</td>
+          <td>{{ company.email }}</td>
+          <td>{{ company.phoneNumber }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteCompany(company.email)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+
+  

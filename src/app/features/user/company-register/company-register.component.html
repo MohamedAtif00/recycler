@@ -1,0 +1,63 @@
+<div class="" style="height: 100px;"></div>
+<div class="container my-5" >
+    <div class="page-header text-center">
+      <h1 class="page-title">Join to Bekia partners network and increase your income</h1>
+      <p class="description">Do you want to make money from your home.</p>
+    </div>
+    <div class="container">
+      <div class="section bepartner-form-section py-3">
+        <h1 class="page-title text-center">Join Now</h1>
+        <p class="description text-center">Please make sure your data is correct before sending it as it can't be changed</p>
+        <div class="row">
+          <div class="col-md-6">
+            <h1 class="section-title">If you have a strong network of relationships with your neighbors in the same building</h1>
+            <p class="description">Ask them to separate the waste, make requests to them, and make profits from each order</p>
+          </div>
+          <div class="col-md-6">
+            <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full name</label>
+                <input type="text" id="fullName" formControlName="fullName" class="form-control" [ngClass]="{'is-invalid': fullName?.invalid && fullName?.touched}">
+                <div *ngIf="fullName?.invalid && fullName?.touched" class="invalid-feedback">
+                  Full name is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" [ngClass]="{'is-invalid': phoneNumber?.invalid && phoneNumber?.touched}">
+                <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched" class="invalid-feedback">
+                  <div *ngIf="phoneNumber?.errors?.['required']">Phone number is required.</div>
+                  <div *ngIf="phoneNumber?.errors?.['pattern']">Invalid phone number format.</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="city" class="form-label">Your City</label>
+                <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'is-invalid': city?.invalid && city?.touched}">
+                <div *ngIf="city?.invalid && city?.touched" class="invalid-feedback">
+                  City is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="area" class="form-label">Your Area</label>
+                <input type="text" id="area" formControlName="area" class="form-control" [ngClass]="{'is-invalid': area?.invalid && area?.touched}">
+                <div *ngIf="area?.invalid && area?.touched" class="invalid-feedback">
+                  Area is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="zone" class="form-label">Your Zone</label>
+                <input type="text" id="zone" formControlName="zone" class="form-control" [ngClass]="{'is-invalid': zone?.invalid && zone?.touched}">
+                <div *ngIf="zone?.invalid && zone?.touched" class="invalid-feedback">
+                  Zone is required.
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="joinForm.invalid">Send</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,23 @@
+{
+    "header":{
+        "Home":"الرئيسية",
+        "Waste":"مخلفات",
+        "Book Now":"بدل مخلفاتك"
+    },
+    "HELLO_HI":"أكسب فلوس من كراكيبك القديمة مع ريسايكلاري",
+    "Description":"أفصل المخلفات و الكراكيب الى عندك و اكسب فلوس",
+    "BookNow":"يلا أحجز ميعاد",
+    "HowToUse":"ازاي تستخدم ريسايكلاري بكل بساطة؟",
+    "It takes 3 minutes to book your order":"ازاى تستخدم ريسايكلاري ف 3 خطوات",
+    "Make an account":"أنشئ حسابك بكل سهولة",
+    "Add your information to make all of the process easy":"أدخل بياناتك الشخصية المطلوبة عشان تسهل علينا نوصلك أسرع",
+    "Separate your waste":"أبداى تجميع النقاط",
+    "Separate your waste and start to input your amounts":"أفصلى الكراكيب فى بيتك وأدخلى الكمية التقريبية",
+    "Book your order":"أرسلى الطلب",
+    "We send our collector to your doorstep":"نرسل مندوبنا لباب بيتك بدون أى مصاريف",
+    "We collect the following":"ايه أنواع الكراكيب الى بنجمعها",
+    "You should separate your waste according to our classification":"يجب فصل المخلفات والكراكيب فى المنزل طبقا للموضح على الموقع",
+    "slides":{
+        "Sports Equipment":"ادوات رياضية"
+    }
+}

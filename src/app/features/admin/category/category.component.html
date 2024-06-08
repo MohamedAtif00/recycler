@@ -1,0 +1,47 @@
+<div class="container">
+    <h2>Categories</h2>
+    <button class="btn btn-primary mb-2" (click)="openCreateCategoryModal(content)">Add Category</button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+          <td>
+            <button class="btn btn-primary me-2" (click)="editCategory(content,category)">Edit</button> |
+            <button class="btn btn-danger ms-2" (click)="deleteCategory(category.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create Category</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="categoryForm">
+        <div class="form-group">
+          <label for="categoryName">Category Name</label>
+          <input type="text" id="categoryName" class="form-control" formControlName="categoryName">
+          <div *ngIf="categoryForm.controls['categoryName'].invalid && categoryForm.controls['categoryName'].touched" class="text-danger">
+            Category name is required.
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="saveCategory()" [disabled]="categoryForm.invalid">Save</button>
+    </div>
+  </ng-template>

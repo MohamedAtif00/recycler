@@ -1,0 +1,52 @@
+<main class="v-content" style="margin-top: 100px;">
+    <div class="v-content__wrap">
+      <div class="page-container has-pattern">
+        <div class="page-header">
+          <h1 class="page-title text-center">Select your waste type</h1>
+        </div>
+        <div class="container">
+          <!-- Slider for waste types -->
+          <div class="container">
+            <h2 class="text-center">We collect the following</h2>
+            <p class="text-center">You should separate your waste according to our classification</p>
+            <ngx-slick-carousel class="bekia-slider" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let item of items" class="slide">
+                <div class="bekia-card text-center">
+                  <img [src]="item.pictureUrl" [alt]="item.pictureUrl" style="width:100px;" class="mx-auto img-fluid">
+                  <h3 class="name">{{item.productName}}</h3>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+            <!-- <button class="btn-next" (click)="next()">next</button>
+            <button class="slick-next slick-arrow btn btn-primary" (click)="prev()">prev</button> -->
+          </div>
+          
+          <!-- Category items -->
+          <div class="category-items">
+            <div class="container-fluid grid-list-md">
+              <div class="layout d-flex gap-3 justify-content-center  wrap">
+                <!-- Use regular div elements for each category item -->
+                <div class="d-flex box-shadow  border gap-3 gx-4 border-3" *ngFor="let item of prodServ.products()">
+                  <div>
+                    <img [src]="item.pictureUrl" [alt]="item.name" style="width: 150px;background-color: white;" class="img-fluid">
+                    <div class="v-card__title">{{ item.name }}</div>
+                    <div align="center" class="grey--text">{{ item.price }} EGY/LE</div>
+                    <hr class="mx-4 v-divider theme--light">
+                    <div class="v-card__actions m-auto text-center">
+                      <button type="button" class="add-btn pa-1 m-auto btn btn-primary" (click)="AddToCart(item)">
+                        <div class="v-btn__content">
+                          <span class="icon icon-plus"></span>
+                          {{ item.price }} EGP
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  

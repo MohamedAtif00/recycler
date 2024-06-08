@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Products</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Picture</th>
+          <th>Price</th>
+          <th>Inventory</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td><img [src]="product.pictureUrl" alt="{{ product.name }}" style="max-height: 50px;"></td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.inventory }}</td>
+          <td>{{ product.category }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editProduct(product)">Edit</button> |
+            <button class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

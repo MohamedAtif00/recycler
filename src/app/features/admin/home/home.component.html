@@ -1,0 +1,21 @@
+<div class="" style="height: 100px;"></div>
+<div class="container" >
+    <ul class="nav nav-tabs">
+        <li class="nav-item" >
+          <a class="nav-link "  [routerLink]="['products']" [ngClass]="activeTab === 'products'?'active':''">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['category']" [ngClass]="activeTab === 'category'?'active':''">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['users']" [ngClass]="activeTab === 'users'?'active':''">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " [routerLink]="['companies']" [ngClass]="activeTab === 'companies'?'active':''">Companies</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link " [routerLink]="['clients-orders']" [ngClass]="activeTab === 'clients-orders'?'active':''">Clients Orders</a>
+        </li> -->
+      </ul>
+      <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,193 @@
+<!-- Masthead-->
+<header class="masthead" style="margin-top: 70px;padding: 0;">
+    <div class="container px-0 px-lg-2 h-100">
+      <div
+        class="row gx-4  text-center"
+      >
+        <div class="col-lg-8 align-self-start p-0">
+          <!-- <h1 class="text-white font-weight-bold">Discover your Favorite Coach</h1> -->
+          <!-- <p>Current Language: {{ currentLang }}</p> -->
+          <h1 class=" fw-normal p-0" style="color: #38af44;"> {{'HELLO_HI' | translate}}</h1>
+          <!-- <h1>{{ 'HOME_TITLE' | translate }}</h1>
+          <button (click)="switchLanguage('en')">English</button>
+          <button (click)="switchLanguage('ar')">العربية</button> -->
+          <!-- <hr class="divider" /> -->
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+          <p class="text-secondary mb-3" >
+            {{'Description' | translate}}
+          </p>
+          <a class="btn btn-xl text-light rounded-2 fs-5 px-2 mt-0" style="background-color: #38af44;" [routerLink]="['book']"
+            >{{'BookNow' | translate}}</a
+          >
+        </div>
+      </div>
+    </div>
+  </header>
+ 
+  <!-- services-section.component.html -->
+<div class="section services-section text-center mt-5 pt-3 vh-100">
+    <h2 class="section-title" style="color: #38af44;">{{'HowToUse' | translate}}</h2>
+    <p class="section-description text-secondary">{{'It takes 3 minutes to book your order' | translate}}</p>
+    <div class="services-list">
+      <div class="container">
+        <div class=" d-flex flex-row pt-4 gap-4 ms-4 justify-content-end align-items-end">
+          <!-- Service 1 -->
+          <div class="col-md-3 col-sm-3 col-3 mb-3 border-0">
+            <div class="service-card card border-0">
+              <div class="card-image">
+                <div class="image-holder">
+                  <img  style="max-height: 250px;max-width: 200px;"  src="https://www.bekia-egypt.com/images/services/create-account.png" alt="Make an account" class="card-img-top">
+                </div>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{'Make an account' | translate}}</h3>
+                <p class="card-text">{{'Add your information to make all of the process easy' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- Service 2 -->
+          <div class="col-md-4 col-sm-6 col-12 mb-4">
+            <div class="service-card card border-0">
+              <div class="card-image">
+                <div class="image-holder">
+                  <img style="max-height: 250px;max-width: 150px;" src="https://www.bekia-egypt.com/images/services/collect-points.png" alt="Separate your waste" class="card-img-top">
+                </div>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{'Separate your waste' | translate}}</h3>
+                <p class="card-text">{{'Separate your waste and start to input your amounts' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- Service 3 -->
+          <div class="col-md-4 col-sm-6 col-12 mb-4">
+            <div class="service-card card border-0">
+              <div class="card-image">
+                <div class="image-holder">
+                  <img  style="max-height: 250px;max-width: 250px;" src="../../../../assets/img/book.png" alt="Book your order" class="card-img-top">
+                </div>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{'Book your order'|translate}}</h3>
+                <p class="card-text">{{'We send our collector to your doorstep'|translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- slider.component.html -->
+<div class="home-section" >
+    <div class="section testimonials-section text-center">
+      <h2 class="section-title">{{'We collect the following'|translate}}</h2>
+      <p class="section-description">{{'You should separate your waste according to our classification'|translate}}</p>
+      <div class="section-body">
+        <div class="custom-tabs">
+          <div class="tabs-header"></div>
+          <div class="tabs-body">
+            <div class="slider-holder">
+              <ngx-slick-carousel dir="ltr" class="bekia-slider" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let item of slides" class="slide">
+                  <div class="bekia-card text-center">
+                    <div class="image-ratio category-image">
+                      <div class="ratio-content">
+                        <img [src]="item.img" [alt]="item.img" class="mx-auto">
+                        <h3 class="name text-center d-flex justify-content-center pt-auto">{{translation.current == 'en'? item.name:item.nameAr}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ngx-slick-carousel>
+              <button class="slick-prev slick-arrow" (click)="slickModal.slickPrev()">Previous</button>
+              <button class="slick-next slick-arrow" (click)="slickModal.slickNext()">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contact-->
+  <section class="page-section" id="contact">
+    <div class="container px-4 px-lg-5">
+      <div class="section-header text-center mb-4" style="padding: 20px;">
+        <h2 class="section-title" style="font-size: 2rem; margin-bottom: 10px;color:#38af44;">
+          Do you have a company?
+        </h2>
+        <p class="section-description" style="margin-bottom: 20px;">
+          Join our green movement
+        </p>
+        <button type="button" class="btn text-light" style="padding: 10px 20px;background-color: #38af44;" (click)="openRegisterModal(content)">
+          Register your company
+        </button>
+        <div class="v-dialog__container" style="display: block;"></div>
+      </div>
+      
+      
+
+<!-- home.component.html -->
+<div class="container mt-5">
+  <!-- <ngx-slick-carousel class="carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+      <img [src]="slide.img" alt="{{ slide.name }}" class="img-fluid">
+      <h5 class="text-center">{{ slide.name }}</h5>
+    </div>
+  </ngx-slick-carousel> -->
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Register Company</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="displayName" class="form-label">Company Name</label>
+          <input type="text" id="displayName" formControlName="displayName" class="form-control" [ngClass]="{'is-invalid': displayName?.invalid && displayName?.touched}">
+          <div *ngIf="displayName?.invalid && displayName?.touched" class="invalid-feedback">
+            Company name is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid': email?.invalid && email?.touched}">
+          <div *ngIf="email?.invalid && email?.touched" class="invalid-feedback">
+            <div *ngIf="email?.errors?.['required']">Email is required.</div>
+            <div *ngIf="email?.errors?.['email']">Invalid email format.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" formControlName="description" class="form-control" [ngClass]="{'is-invalid': description?.invalid && description?.touched}"></textarea>
+          <div *ngIf="description?.invalid && description?.touched" class="invalid-feedback">
+            Description is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Phone Number</label>
+          <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" [ngClass]="{'is-invalid': phoneNumber?.invalid && phoneNumber?.touched}">
+          <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched" class="invalid-feedback">
+            <div *ngIf="phoneNumber?.errors?.['required']">Phone number is required.</div>
+            <div *ngIf="phoneNumber?.errors?.['pattern']">Invalid phone number format.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" formControlName="password" class="form-control" [ngClass]="{'is-invalid': password?.invalid && password?.touched}">
+          <div *ngIf="password?.invalid && password?.touched" class="invalid-feedback">
+            <div *ngIf="password?.errors?.['required']">Password is required.</div>
+            <div *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters long.</div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

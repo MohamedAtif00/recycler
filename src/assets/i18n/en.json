@@ -1,0 +1,23 @@
+{
+    "header":{
+        "Home":"Home",
+        "Waste":"Waste",
+        "Book Now":"Book Now"
+    },
+    "HELLO_HI":"Make money from your waste with Recycler",
+    "Description":"Discover the coach who will inspire and empower you to reach your goals. Our diverse team of professionals is dedicated to helping you achieve lasting change and fulfillment in every aspect of your life.",
+    "BookNow":"Yala Book Now!",
+    "HowToUse":"How to use Recyclery easily?",
+    "It takes 3 minutes to book your order":"It takes 3 minutes to book your order",
+    "Make an account":"Make an account",
+    "Add your information to make all of the process easy":"Add your information to make all of the process easy",
+    "Separate your waste":"Separate your waste",
+    "Separate your waste and start to input your amounts":"Separate your waste and start to input your amounts",
+    "Book your order":"Book your order",
+    "We send our collector to your doorstep":"We send our collector to your doorstep",
+    "We collect the following":"We collect the following",
+    "You should separate your waste according to our classification":"You should separate your waste according to our classification",
+    "slides":{
+        "Sports Equipment":"Sports Equipment"
+    }
+}

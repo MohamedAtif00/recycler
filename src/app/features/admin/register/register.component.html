@@ -1,0 +1,29 @@
+<div class="" style="height: 200px;"></div>
+<div class="container" >
+    <h2>Admin Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+      <div class="form-group">
+        <label for="displayName"> Name:</label>
+        <input type="text" class="form-control" id="displayName" formControlName="displayName">
+      </div>
+      <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+      </div>
+      <div class="form-group">
+        <label for="leverages">Leverages:</label>
+        <input type="text" class="form-control" id="leverages" formControlName="leverages">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      <div *ngIf="errorMessage" class="text-danger mt-2">{{ errorMessage }}</div>
+    </form>
+  </div>
+  

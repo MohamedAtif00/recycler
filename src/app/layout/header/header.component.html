@@ -1,0 +1,389 @@
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-1 m-0" style="background-color: white !important;height: 80px;box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15);">
+    <div class="container-fluid px-4 px-lg-5 mt-2">
+        <a class="navbar-brand d-flex text-primary"  [routerLink]="['']">
+            <img style="width: 70px;height: 70px;" src="../../../assets/img/main.jpg" alt="" srcset="">
+            <div class="d-flex flex-column justify-content-center">
+                <p class="fs-2 fw-bold mb-0" style="color: #38af44;">Recyclery</p> 
+                <p style="font-size:x-small;" class="mt-0">description</p>
+            </div>
+        </a>
+      <button
+        class="navbar-toggler navbar-toggler-right"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarResponsive"
+        aria-controls="navbarResponsive"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarResponsive">
+        <ul class="navbar-nav  d-flex justify-content-start ">
+            <li class="nav-item rounded-1 " style="background-color: #e7f5e8;"><a class="nav-link text-primary fw-light fs-6 " [routerLink]="['']">{{'header.Home'|translate}}</a></li>
+            <li class="nav-item"><a class="nav-link text-primary  " [routerLink]="['book']">{{'header.Waste'|translate}}</a></li>
+            <li class="nav-item"><a class="nav-link text-primary  " [routerLink]="['book']">{{'header.Book Now'|translate}}</a></li>
+            <!-- <li>
+              <select #select (change)="switchLanguage(select)">
+                <option selected value="en">English</option>
+                <option value="ar">Arabic</option>
+              </select>
+            </li> -->
+            <li class="nav-item basket-holder" *ngIf="authService.stateItem$ | async as user ">
+              <button class="btn basket-icon" type="button" (click)="toggleSidebar()" *ngIf="user.role != 'admin'">
+                <span class="basket-count" *ngIf="cartServ.getTotalQuantity()">{{cartServ.count()}}</span>
+                <img src="https://www.bekia-egypt.com/images/basket-icon.png" alt="basket" [ngClass]="{'lighter-image ':cartServ.count() == 0}" class="img-fluid  ">
+              </button>
+            </li>
+            <!-- <li class="nav-item"><a class="nav-link text-primary  " href="#contact">Contact</a></li> -->
+            
+        </ul>
+        <ul class="navbar-nav d-flex justify-content-end align-items-end m-0" [ngClass]="{'m-0':currentLang == 'ar'}">
+          <!-- <li class="nav-item"><a class="nav-link text-info  " href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link text-info  " href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link text-info  " href="#portfolio">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link text-info  " href="#contact">Contact</a></li> -->
+        
+            <!-- Login Button for Unauthenticated Users -->
+          <li class="nav-item m-0" *ngIf="!(authService.stateItem$ | async)">
+            <a class="nav-link text-primary fw-medium btn px-4 p-2 rounded rounded-5 mx-0" (click)="open(companyLogin)" [routerLink]="['auth','Login']">
+             Company Login
+            </a>
+          </li>
+          <!-- Login Button for Unauthenticated Users -->
+          <li class="nav-item m-0" *ngIf="!(authService.stateItem$ | async)">
+            <a class="nav-link text-primary fw-medium btn px-4 p-2 rounded rounded-5 mx-0" (click)="open(login)" [routerLink]="['auth','Login']">
+              Login
+            </a>
+          </li>
+          <!-- Register Button for Unauthenticated Users -->
+          <li class="nav-item" *ngIf="!(authService.stateItem$ | async)">
+          <a class="nav-link btn fw-medium text-light px-4 p-2 rounded rounded-2 mx-0" 
+             [routerLink]="['auth']" 
+             style="background-color: rgb(0, 215, 72);"
+             (click)="RegisterOpen(register)">
+            Signup
+          </a>
+        </li>
+  
+        <!-- Logout Button for Authenticated Users -->
+        <!-- <li class="nav-item" *ngIf="authService.stateItem$ | async">
+          <a
+            class="nav-link btn btn-danger px-4 p-2 rounded rounded-5 mx-4"
+            href="#"
+            (click)="authService.logout()"
+          >
+            Logout
+          </a>
+        </li> -->
+        <!-- <li>
+          <div class="col text-end">
+            <div ngbDropdown placement="top-end" class="d-inline-block">
+              <button type="button" class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Toggle dropup</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button ngbDropdownItem>Action - 1</button>
+                <button ngbDropdownItem>Another Action</button>
+                <button ngbDropdownItem>Something else is here</button>
+              </div>
+            </div>
+          </div>
+        </li> -->
+        <li class="nav-item" >
+         <!-- user-menu.component.html -->
+          <div class="user-info" *ngIf="(authService.stateItem$ | async) as user">
+            <div class="v-menu user-menu v-menu--inline dropdown">
+              <div class="v-menu__activator">
+                <button type="button" class="menu-switcher v-btn v-btn--flat theme--light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="v-btn__content">
+                    <div class="user-avatar has-avatar">
+                      <img src="https://dashboard.bekia-egypt.com//storage/users/user-default.png" >
+                    </div>
+                    <h4 class="user-name">
+                      Hello,
+                      <br>
+                       {{user.displayName}}
+                    </h4>
+                    <span class="icon icon-angle-down arrow-icon"></span>
+                  </div>
+                </button>
+                <ul class="dropdown-menu">
+                  <!-- <li><a class="dropdown-item fw-light " style="font-size: smaller;" >My Profile</a></li>
+                  <li><a class="dropdown-item fw-light " style="font-size: smaller;" >Settings</a></li> -->
+                  <li class="nav-item" *ngIf="authService.stateItem$ | async">
+                    <a
+                    class="dropdown-item fw-light " style="font-size: smaller;"
+                      (click)="authService.logout()"
+                    >
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          
+        </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ///////////// Register /////////////////////////-->
+
+  <ng-template #register let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" style="color: rgb(0, 215, 72);">Create Account</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+        <div class="form-row full-name-input">
+          <div class="input-data">
+            <input id="FullName" type="text" formControlName="FullName" required>
+            <div class="underline"></div>
+            <label for="FullName">Full Name</label>
+            <div *ngIf="fullName?.invalid && fullName?.touched" class="text-danger">
+              Full Name is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-row email-input">
+          <div class="input-data">
+            <input id="Email" type="email" formControlName="Email" required>
+            <div class="underline"></div>
+            <label for="Email">Email Address</label>
+            <div *ngIf="email?.invalid && email?.touched" class="text-danger">
+              <div *ngIf="email?.errors?.['required']">Email is required.</div>
+              <div *ngIf="email?.errors?.['email']">Invalid email format.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row phone-number-input">
+          <div class="input-data">
+            <input id="PhoneNumber" type="text" formControlName="PhoneNumber" required>
+            <div class="underline"></div>
+            <label for="PhoneNumber">Phone</label>
+            <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched" class="text-danger">
+              <div *ngIf="phoneNumber?.errors?.['required']">Phone number is required.</div>
+              <div *ngIf="phoneNumber?.errors?.['pattern']">Invalid phone number format.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row password-input">
+          <div class="input-data">
+            <input id="Password" type="password" formControlName="Password" required>
+            <div class="underline"></div>
+            <label for="Password">Password</label>
+            <div *ngIf="password?.invalid && password?.touched" class="text-danger">
+              <div *ngIf="password?.errors?.['required']">Password is required.</div>
+              <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row recycling-preferences-input">
+          <div class="input-data">
+            <select id="RecyclingPreferences" formControlName="RecyclingPreferences" class="form-control" required (change)="removePlaceholder($event)">
+              <option value="" disabled selected>Select your preference</option>
+              <option *ngFor="let slide of slides" [value]="slide.name">{{ slide.name }}</option>
+            </select>
+            <!-- <div class="underline"></div> -->
+            <!-- <label for="RecyclingPreferences">Recycling Preferences</label> -->
+            <div *ngIf="recyclingPreferences?.invalid && recyclingPreferences?.touched" class="text-danger">
+              Recycling Preferences are required.
+            </div>
+          </div>
+        </div>
+        <div class="form-row d-flex justify-content-center" style="margin-top: 20px;">
+          <div class="submit-btn w-50">
+            <input class="m-4 rounded-3 btn btn-primary w-100" type="submit" value="Submit">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+  
+  
+  <ng-template [ngIf]="true"  >
+    <aside class="basket-drawer bg-light  d-flex flex-column justify-content-between pt-4"
+           [ngClass]="{'open':isOpen}" 
+            style="height: 100%; width: 300px;">
+      <ul class="list-group list-group-flush fs-6 overflow-y-scroll">
+        <li class="list-group-item d-flex justify-content-between align-items-center border-2 rounded-1 " *ngFor="let item of cartServ.getProducts()">
+          <div class="d-flex h-100 align-items-center custom-item">
+            <img [src]="item.pictureUrl" alt="{{item.productName}}" class="custom-img">
+            <span class="custom-product-name">{{ item.productName }}</span>
+          </div>
+          <div class="d-flex align-items-center custom-controls">
+            <div class="d-flex flex-column">
+              <button type="button" 
+                      class="btn btn-sm btn-outline-success custom-quantity-btn p-0"  
+                      (click)="increaseQuantity(item); $event.stopPropagation()"
+                      style="height: 20px;width:20px;">
+                <span class="bi bi-plus" style="font-size: 15px;margin: 0;"></span>
+              </button>
+              <div class="d-flex justify-content-center">
+                <input type="text" class="form-control text-start custom-quantity-input" [value]="item.quantity" readonly>
+                
+              </div>
+              <button type="button" 
+                      class="btn btn-sm btn-outline-danger custom-quantity-btn" 
+                      (click)="decreaseQuantity(item.productName); $event.stopPropagation()"
+                      style="height: 20px;width:20px;">
+                <span class="bi bi-dash"></span>
+              </button>
+
+            </div>
+
+            <button type="button" class="btn btn-sm btn-danger text-start d-flex justify-content-start align-items-start custom-remove-btn" 
+                    (click)="removeProduct(item.productName); $event.stopPropagation()"
+                    style="height: 20px;width:20px;">
+              <span class="me-4 bi bi-trash" style="font-size: 10px;"></span>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <div class="basket-footer p-3 d-flex flex-column  ">
+        <p class="total d-flex flex-column text-center mb-1">
+          <span>Total Price</span> <span class="value text-primary fw-bold" >{{cartServ.getTotalPrice()}} EGP</span>
+        </p>
+        <!-- <p class="minimum-points-note text-center mb-3">You must collect points to see items here</p> -->
+        <button type="button" (click)="openDialog(address,login)" class="btn btn-primary btn-block w-100">Next</button>
+      </div>
+    </aside>
+  </ng-template>
+  
+  <ng-template #companyLogin let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Login to Company Account</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="companyLoginForm" (ngSubmit)="CompanyLoginSubmit()">
+        <div class="mb-3">
+          <label for="login-email" class="form-label">E-mail/Phone Number</label>
+          <input type="text" id="login-email" formControlName="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="login-password" class="form-label">Password</label>
+          <div class="input-group">
+            <input type="password" id="login-password" formControlName="password" class="form-control" required>
+            <span class="input-group-text" (click)="togglePasswordVisibility()">
+              <i [ngClass]="{'fa fa-eye': !passwordVisible, 'fa fa-eye-slash': passwordVisible}"></i>
+            </span>
+          </div>
+        </div>
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="remember-me" >
+          <label class="form-check-label" for="remember-me">Remember me</label>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="companyLoginForm.invalid">Login</button>
+        </div>
+        <div class="text-center mt-3">
+          <a href="#" (click)="forgotPassword()">Forgot password?</a>
+        </div>
+      </form>
+      <div class="text-center mt-3">
+        <p>or login with</p>
+        <button type="button" class="btn btn-outline-primary"><i class="fab fa-google"></i> Google</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #address >
+    <div class="modal-header">
+        <h4 class="modal-title">Delivery Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addressForm" (ngSubmit)="CreateOrder()">
+
+            <div class="form-group">
+                <label for="deliveryMethodId">Delivery Method</label>
+                <select class="form-control" id="deliveryMethodId" formControlName="deliveryMethodId">
+                    <option *ngFor="let method of cartServ.deliveryMethods" [value]="method.id">
+                        {{method.shortName}} - {{method.description}} ({{method.deliveryTime}} - ${{method.cost}})
+                    </option>
+                </select>
+            </div>
+
+            <div formGroupName="shipAddress">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                </div>
+
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" class="form-control" id="street" formControlName="street">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" formControlName="city">
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" id="country" formControlName="country">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+        </form>
+    </div>
+</ng-template>
+
+
+  <ng-template #login let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Login to your Account</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <div class="mb-3">
+          <label for="login-email" class="form-label">E-mail/Phone Number</label>
+          <input type="text" id="login-email" formControlName="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="login-password" class="form-label">Password</label>
+          <div class="input-group">
+            <input type="password" id="login-password" formControlName="password" class="form-control" required>
+            <span class="input-group-text" (click)="togglePasswordVisibility()">
+              <i [ngClass]="{'fa fa-eye': !passwordVisible, 'fa fa-eye-slash': passwordVisible}"></i>
+            </span>
+          </div>
+        </div>
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="remember-me" >
+          <label class="form-check-label" for="remember-me">Remember me</label>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+        </div>
+        <div class="text-center mt-3">
+          <a href="#" (click)="forgotPassword()">Forgot password?</a>
+        </div>
+      </form>
+      <div class="text-center mt-3">
+        <p>or login with</p>
+        <button type="button" class="btn btn-outline-primary"><i class="fab fa-google"></i> Google</button>
+      </div>
+    </div>
+  </ng-template>
+  
+  

@@ -1,0 +1,284 @@
+
+@import 'ngx-toastr/toastr';
+
+
+/* ////////////////// Modal ////////////// */
+.custom-animation .modal-dialog {
+  transition: transform 5s ease-out, opacity 5s ease-out;
+  transform: translateY(-50px);
+  opacity: 0;
+}
+
+.custom-animation .modal.show .modal-dialog {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+
+/* //////////////// Form //////////////// */
+
+/* Common styles for input data */
+.input-data {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-data input,
+.input-data select {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  padding: 8px 0;
+  font-size: 16px;
+  background: transparent;
+}
+
+.input-data .underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #3eee44;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.input-data input:focus ~ .underline,
+.input-data select:focus ~ .underline,
+.input-data input:valid ~ .underline,
+.input-data select:valid ~ .underline {
+  transform: scaleX(1);
+}
+
+.input-data label {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  color: #aaa;
+  font-size: 16px;
+  transition: transform 0.3s ease, font-size 0.3s ease, top 0.3s ease;
+  pointer-events: none;
+}
+
+.input-data input:focus ~ .underline + label,
+.input-data input:valid ~ .underline + label,
+.input-data select:focus ~ .underline + label,
+.input-data select:valid ~ .underline + label {
+  top: -20px;
+  font-size: 12px;
+  color: #3eee44;
+}
+
+/* Specific styles for each input data type */
+.full-name-input label {
+  top: 8px;
+  left: 0;
+}
+
+.email-input label {
+  top: 8px;
+  left: 0;
+}
+
+.phone-number-input label {
+  top: 8px;
+  left: 0;
+}
+
+.password-input label {
+  top: 8px;
+  left: 0;
+
+}
+
+.recycling-preferences-input label {
+  top: 8px;
+  left: 0;
+}
+
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+  transform: scale(1.05);
+}
+
+input[type="submit"]:active {
+  background-color: #0056b3;
+  transform: scale(0.95);
+}
+
+.text-danger {
+  color: red;
+  font-size: 12px;
+}
+
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.v-menu {
+  position: relative;
+}
+
+.v-btn {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.v-btn__content {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 14px;
+}
+
+.icon-angle-down {
+  margin-left: 5px;
+}
+
+.arrow-icon {
+  transition: transform 0.3s;
+}
+
+.v-menu__activator[ngbDropdown]:hover .arrow-icon {
+  transform: rotate(180deg);
+}
+
+
+
+/* sidebar.component.css */
+.basket-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1050;
+  height: 100%;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateX(300px);
+  transition: transform 0.5s ease; /* Add transition property */
+}
+
+.basket-drawer.open {
+  transform: translateX(0);
+}
+
+.basket-holder {
+  position: relative;
+}
+
+.basket-icon {
+  position: relative;
+  background: none;
+  border: none;
+}
+
+.basket-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+}
+
+.item-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.controls .btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.basket-footer {
+  border-top: 1px solid #e9ecef;
+}
+
+.bi {
+  font-size: 1.2rem;
+}
+
+
+.lighter-image {
+  opacity: 0.7; /* Adjust the value between 0 and 1 to make the image lighter */
+}
+
+
+/*------------ Cart--------- */
+.custom-item {
+  display: flex;
+  align-items: center;
+}
+
+.custom-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.custom-product-name {
+  margin-right: auto;
+}
+
+.custom-controls {
+  display: flex;
+  align-items: center;
+}
+
+.custom-quantity-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.custom-quantity-input {
+  width: 40px;
+  margin: 0 5px;
+  text-align: center;
+  border: none;
+  background: transparent;
+}
+
+.custom-remove-btn {
+  background-color: red;
+  border-color: red;
+}
+

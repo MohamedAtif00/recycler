@@ -13,7 +13,7 @@
           <button (click)="switchLanguage('ar')">العربية</button> -->
           <!-- <hr class="divider" /> -->
         </div>
-        <div class="col-lg-8 align-self-baseline">
+        <div class="col-lg-8 my-4 align-self-baseline">
           <p class="text-secondary mb-3" >
             {{'Description' | translate}}
           </p>
@@ -95,7 +95,7 @@
                   <div class="bekia-card text-center">
                     <div class="image-ratio category-image">
                       <div class="ratio-content">
-                        <img [src]="item.img" [alt]="item.img" class="mx-auto">
+                        <img [src]="item.img" [alt]="item.img" class="w-100">
                         <h3 class="name text-center d-flex justify-content-center pt-auto">{{translation.current == 'en'? item.name:item.nameAr}}</h3>
                       </div>
                     </div>

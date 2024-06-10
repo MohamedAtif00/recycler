@@ -1,5 +1,6 @@
 <div class="container">
     <h2>Products</h2>
+    <button class="btn btn-primary" (click)="open(productFormTemplate)">Create Product</button>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -21,7 +22,7 @@
           <td>{{ product.inventory }}</td>
           <td>{{ product.category }}</td>
           <td>
-            <button class="btn btn-primary" (click)="editProduct(product)">Edit</button> |
+            <button class="btn btn-primary" (click)="editProduct(product,productFormTemplate)">Edit</button> |
             <button class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
           </td>
         </tr>
@@ -29,3 +30,46 @@
     </table>
   </div>
   
+
+  <!-- product-form.component.html -->
+<ng-template #productFormTemplate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Product Form</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" formControlName="name" />
+      </div>
+      <div class="form-group">
+        <label for="pictureUrl">Picture URL</label>
+        <input id="pictureUrl" class="form-control" formControlName="pictureUrl" />
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input id="price" type="number" class="form-control" formControlName="price" />
+      </div>
+      <div class="form-group">
+        <label for="inventory">Inventory</label>
+        <input id="inventory" type="number" class="form-control" formControlName="inventory" />
+      </div>
+      <div class="form-group">
+          <label for="categories" class="form-label">Category</label>
+          <select name="category" formControlName="category" (change)="selectCategory($event)" id="categories" class="form-select">
+            <option value="" disabled selected>Please Select product Type</option>
+            <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+          </select>
+        
+      </div>
+      
+      <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Submit</button>
+    </form>
+  </div>
+</ng-template>
+
+<!-- <button class="btn btn-primary" (click)="open(productFormTemplate)">Open Product Form</button> -->
+

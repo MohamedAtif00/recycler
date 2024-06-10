@@ -11,12 +11,14 @@ export class CategoryService{
 
 
     private getAllCategories:string = `${environment.localhost}Category`
+    private deleteCategory:string = `${environment.localhost}Category`
     private createCategory = `${environment.localhost}Category/AddCategory`
     private updateCategory = `${environment.localhost}Category/UpdateCategory/`
     constructor(private _http:HttpClient){}
 
     GetAllCategories()
     {
+
         return this._http.get<Category[]>(this.getAllCategories)
     }
 
@@ -28,5 +30,10 @@ export class CategoryService{
     UpdateCategory(item:Category)
     {
         return this._http.put<Category>(this.updateCategory+item.id,item);
+    }
+
+    DeleteCategory(id:number)
+    {
+        return this._http.delete(this.deleteCategory+'?id='+id);
     }
 }

@@ -12,16 +12,42 @@ import { map } from "rxjs";
 export class    ProductService{
 
     private getProducts = `${environment.localhost}Product`
+    private createProduct = `${environment.localhost}Product/AddProduct`
+    private updateProduct = `${environment.localhost}Product/UpdateProduct/`
 
 
     products = signal<Product[]>([])
     constructor(private _http:HttpClient){
-        this.GetProducts()
+        this.GetProducts(null).subscribe()
 
     }
 
-    GetProducts()
+    CreateProduct(product:Product)
     {
+
+        return this._http.put<Product>(this.createProduct,product)
+
+    }
+
+
+    DeleteProduct(id:number)
+    {
+        return this._http.delete<any>(this.getProducts+'?id='+id);
+    }
+
+    GetProducts(categoryId?:number|undefined|null)
+    {
+        if(categoryId)
+            {
+               return this._http.get<Product[]>(this.getProducts+'?CategoryId='+categoryId).pipe(
+                    map((response)=>{
+                        console.log(response);
+                        
+                        this.products.set(response)
+                        return response
+                    })
+                )
+            }
         return this._http.get<Product[]>(this.getProducts).pipe(
             map((response)=>{
                 console.log(response);
@@ -30,6 +56,11 @@ export class    ProductService{
                 return response
             })
         )
+    }
+
+    EditProduct(product:Product)
+    {
+        return this._http.put<any>(this.updateProduct+product.id,product)
     }
 
 }

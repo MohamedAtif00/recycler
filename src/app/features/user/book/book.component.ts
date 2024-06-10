@@ -5,6 +5,10 @@ import { Product } from '../../../shared/model/product.model';
 import { CartService } from '../../../shared/service/cart.service';
 import { ProductService } from '../../../shared/service/product.service';
 import { Item } from '../../../shared/model/item.model';
+import { AuthService } from '../../../core/services/authentcation.service';
+import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from '../../../shared/service/category.service';
+import { Category } from '../../../shared/model/category.model';
 
 @Component({
   selector: 'app-book',
@@ -15,16 +19,13 @@ export class BookComponent implements OnInit{
 
 
 
-   items= [
-    { id: 0, productName: 'Chair', pictureUrl: 'https://dashboard.bekia-egypt.com//storage/items/eCmzdy4YI1bjs4GRg7ORHnZ25evL0UOhwYspXKXa.png', category: 'piece', price: 380, quantity: 0 },
-    { id: 1, productName: 'Plastics', pictureUrl: 'https://dashboard.bekia-egypt.com//storage/items/Ghk5ylX4gtpHQjax7M1n5dvGf1VZGXwKkKcWkVR1.png', category: 'kg', price: 190, quantity: 0 },
-    { id: 2, productName: 'Coleman Water', pictureUrl: 'https://dashboard.bekia-egypt.com//storage/items/ZKrQHf68q4Qt06T6Ok4MIfKAlNQQTthMaDtY20Ms.png', category: 'piece', price: 285, quantity: 0 },
-    { id: 3, productName: 'Plastic Barrel', pictureUrl: 'https://dashboard.bekia-egypt.com//storage/items/dW0WRAD5XbEgr2SYPWUEinXvQidnjYHdYtvJP6uJ.png', category: 'piece', price: 950, quantity: 0 },
-    { id: 4, productName: 'Acrylic', pictureUrl: 'https://dashboard.bekia-egypt.com//storage/items/95df0632cb4f5ed4a30133a2e2b07818.png', category: 'kg', price: 285, quantity: 0 },
-    { id: 5, productName: 'Solid Plastic', pictureUrl: 'https://dashboard.bekia-egypt.com//storage/items/ba0d59426216fc0fd61dee2d5f553125.png', category: 'kg', price: 19, quantity: 0 }
-];
+   items:Category[]= [];
 
-constructor(private cartServ:CartService,public prodServ:ProductService){}
+constructor(private cartServ:CartService,
+            public prodServ:ProductService,
+            private authServ:AuthService,
+            private toastr:ToastrService,
+            private categoryServ:CategoryService){}
 
 
   // slideConfig = {
@@ -38,7 +39,10 @@ constructor(private cartServ:CartService,public prodServ:ProductService){}
   // };
 
   ngOnInit(): void {
-    this.prodServ.GetProducts().subscribe()
+    this.categoryServ.GetAllCategories().subscribe(data=>{
+      this.items = data
+    })
+    this.prodServ.GetProducts(null).subscribe()
     this.prodServ.products
   }
 
@@ -77,13 +81,20 @@ constructor(private cartServ:CartService,public prodServ:ProductService){}
 
   AddToCart(product:Product)
   {
-    let item:Item  ={id:product.id,
-                     productName:product.name,
-                     pictureUrl:product.pictureUrl,
-                     category:product.category,
-                     price:product.price,
-                     quantity:1} 
-    this.cartServ.addProduct(item)
+    if(!this.authServ.isAuthenticated())
+      {
+        this.toastr.info('Please Login First','Waring')
+      }else
+      {
+        let item:Item  ={id:product.id,
+                         productName:product.name,
+                         pictureUrl:product.pictureUrl,
+                         category:product.category,
+                         price:product.price,
+                         quantity:1} 
+        this.cartServ.addProduct(item)
+
+      }
   } 
 
   next() {
@@ -91,6 +102,14 @@ constructor(private cartServ:CartService,public prodServ:ProductService){}
   }
   prev() {
     this.slickModal.slickPrev();
+  }
+
+  GetProducts(id:number)
+  {
+    this.prodServ.GetProducts(id).subscribe(data=>{
+      console.log(data);
+      
+    });
   }
 
 }

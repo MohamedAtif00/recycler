@@ -18,6 +18,7 @@ const routes:Routes = [
     {path:'users',component:UsersComponent},
     {path:'companies',component:CompaniesComponent},
     {path:'clients-orders',component:ClientOrderComponent},
+    {path:'companies-orders',component:ClientOrderComponent},
   ],
   canActivate:[AdminAuthGuard]},
 

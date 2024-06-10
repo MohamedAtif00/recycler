@@ -9,12 +9,18 @@ import { Company } from '../model/company.model';
 })
 export class CompanyService {
   private getAllCompanies:string = `${environment.localhost}Account/AllCompanies`
+  private getCompaniesOrders:string = `${environment.localhost}CompanyOrders`
   private deleteCompany:string = `${environment.localhost}Account/Company?email=`
 
   constructor(private http: HttpClient) { }
 
   getCompanies(): Observable<Company[]> {
     return this.http.get<Company[]>(this.getAllCompanies);
+  }
+
+  GetOrders()
+  {
+    return this.http.get<any>(this.getCompaniesOrders)
   }
 
 //   addCompany(company: Company): Observable<Company> {

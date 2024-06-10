@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/authentcation.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,10 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, 
+              private authService: AuthService,
+              private toastr:ToastrService,
+              private router:Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -24,7 +29,8 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.AdminLogin(this.loginForm.value).subscribe(
         (response) => {
-          console.log('Login successful', response);
+          this.toastr.success('Login Success','Success');
+          this.router.navigate(['admin','products']);
           // Add any further logic, such as redirecting to a different page
         },
         (error) => {

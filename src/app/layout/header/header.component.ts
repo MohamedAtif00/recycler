@@ -13,7 +13,9 @@ import { Item } from '../../shared/model/item.model';
 import { MatDialog } from '@angular/material/dialog';
 import { Order } from '../../shared/model/order.model';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, of } from 'rxjs';
+import { catchError, of, pipe } from 'rxjs';
+import { Address } from '../../shared/model/address.model';
+import { DeliveryMethod } from '../../shared/model/delivery-method.model';
 
 @Component({
   selector: 'app-header',
@@ -31,6 +33,10 @@ export class HeaderComponent implements OnInit{
   passwordVisible: boolean = false;
   @ViewChild('modalTemplate') modalTemplate!: TemplateRef<any>;
   @ViewChild('address') address! :TemplateRef<any>;
+  @ViewChild('payment') payment!:TemplateRef<any>;
+  addressData!:Address;
+  paymentMethod!:DeliveryMethod;
+  deliveryMehtod!:DeliveryMethod;
 
 
   currentLang!: string;
@@ -286,31 +292,60 @@ export class HeaderComponent implements OnInit{
 
   CreateOrder()
   {
+    console.log(this.addressForm.value);
+    
     this.cartServ.CreateOrder(this.addressForm.value.shipAddress, this.addressForm.value.deliveryMethodId).pipe(
       catchError(error => {
           // console.error('Error creating order:', error);
           // Display an error message to the user (e.g., using ToastrService)
           // this.toaster.error('Failed to create order. Please try again.', 'Order Error');
-          this.cartServ.emptyCart();
+          // this.modalServ.open(this.payment, { centered: true,windowClass:'custom-animation' });
+
+          //this.cartServ.emptyCart();
           // this.modalServ.open(this.address, { centered: true, windowClass: 'custom-animation' });
           this.modalServ.dismissAll(this.address);
           // Return an empty observable or a default value to keep the observable chain alive
           return of(null);
       })
   ).subscribe(data => {
-      if (data) {
-          console.log(data);
-          this.cartServ.emptyCart();
-          // this.modalServ.open(this.address, { centered: true, windowClass: 'custom-animation' });
-          this.modalServ.dismissAll(this.address);
-      }
+    console.log('opne');
+    
+          this.deliveryMehtod = this.getAddress?.value.deliveryMethodId
+          this.addressData = {firstName:this.getAddress?.value.firstName,
+                              lastName:this.getAddress?.value.lastName,
+                              street:this.getAddress?.value.street,
+                              country:this.getAddress?.value.country,
+                              city:this.getAddress?.value.city}
+
+    this.modalServ.open(this.payment, { centered: true,windowClass:'custom-animation' });
+        console.log(this.deliveryMehtod);
+        
+
+      // console.log(data);
+      // this.cartServ.emptyCart();
+      // this.modalServ.open(this.address, { centered: true, windowClass: 'custom-animation' });
+      // this.modalServ.dismissAll(this.address);
+      
   });
-  
+  // this.modalServ.open(this.payment, { centered: true,windowClass:'custom-animation' });
     this.toaster.success('Order has made successfully ','success');
   }
 
 
-
+  pay()
+  {
+    this.cartServ.pay().pipe(
+      catchError(error=>{
+        console.log(error);
+        this.toaster.success('Payment Completed' ,'Successful');
+        this.modalServ.dismissAll()
+        return of(null)
+      })
+    ).subscribe(data=>{
+      console.log(data);
+      this.toaster.success('Payment Completed' ,'Successful');
+    })
+  }
 
 
   get fullName() {
@@ -331,6 +366,11 @@ export class HeaderComponent implements OnInit{
 
   get password() {
     return this.registerForm.get('Password');
+  }
+
+  get getAddress()
+  {
+    return this.addressForm.get('shipAddress');
   }
 
 

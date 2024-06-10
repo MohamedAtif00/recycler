@@ -47,7 +47,12 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
     NgbModalModule,
     NgbCarouselModule,
     NgbDropdownModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        closeButton:true,
+        preventDuplicates:true
+      }
+    ),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

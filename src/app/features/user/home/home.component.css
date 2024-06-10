@@ -600,9 +600,9 @@ progress {
 
 .img-fluid {
   /* max-width: 100%; */
-  max-height:273px;
-  width:640px;
-  height: auto;
+  /* max-height:273px; */
+  /* width:640px; */
+
 }
 
 .img-thumbnail {
@@ -11091,6 +11091,7 @@ header.masthead h1, header.masthead .h1 {
     bottom: 0;
     left: 0;
     right: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

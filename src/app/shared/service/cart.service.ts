@@ -25,6 +25,8 @@ export class CartService
     private createCompanyOrder = `${environment.localhost}CompanyOrders`
     private getDeliveryMehtods = `${environment.localhost}CompanyOrders/DeliveryMethods`
 
+    private payment = `${environment.localhost}Payment`
+
     private _productsSignal:WritableSignal<Item[]>= signal<Item[]>([]);
     deliveryMethods!:DeliveryMethod[];
   
@@ -187,6 +189,9 @@ export class CartService
       );
     }
   
-  
+    pay()
+    {
+      return this._http.post(this.payment+'?BasketId=1',1)
+    }
 
 }

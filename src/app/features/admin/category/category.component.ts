@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, WritableSignal, signal } from '@angular/core';
 import { CategoryService } from '../../../shared/service/category.service';
 import { Category } from '../../../shared/model/category.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +15,7 @@ export class CategoryComponent implements OnInit{
   categoryForm!: FormGroup;
   private modalRef: NgbModalRef | undefined;
   private selectedCategory!:Category | null;
-  categories!:Category[];
+  categories:WritableSignal<Category[]> = signal<Category[]>([]);
   constructor(private categoryServ:CategoryService,
               private modalService:NgbModal,
               private fb: FormBuilder,
@@ -29,7 +29,7 @@ export class CategoryComponent implements OnInit{
   GetAllCategories()
   {
     this.categoryServ.GetAllCategories().subscribe(data=>{
-      this.categories = data
+      this.categories.set(data)
     })
 
   }
@@ -51,9 +51,11 @@ export class CategoryComponent implements OnInit{
     if (this.categoryForm.valid) {
       if(this.selectedCategory)
         {
+          debugger;
           this.categoryServ.UpdateCategory({id:this.selectedCategory.id,name:this.categoryForm.value.categoryName}).subscribe(data=>{
             console.log('Category Updated:', data);
             this.modalRef?.close();
+            this.selectedCategory = null
             return;
 
           });
@@ -103,22 +105,31 @@ export class CategoryComponent implements OnInit{
         // Handle the close action here
         console.log('Modal closed with result:', result);
         this.onModalClose(result);
+        this.selectedCategory = null
       },
       (reason) => {
         // Handle the dismiss action here
         console.log('Modal dismissed with reason:', reason);
         this.onModalDismiss(reason);
+        this.selectedCategory = null
       }
     )
   }
 
   deleteCategory(id:number)
-  {}
+  {
+    this.categoryServ.DeleteCategory(id).subscribe(data=>{
+      this.toastr.success('category deleted','success')
+      this.categoryServ.GetAllCategories().subscribe(data=>{
+        this.categories.set(data)
+      })
+    })
+  }
 
   getMaxId(): number {
-    if (this.categories.length === 0) {
+    if (this.categories().length === 0) {
       return 0; // or handle empty array case as needed
     }
-    return Math.max(...this.categories.map(category => category.id));
+    return Math.max(...this.categories().map(category => category.id));
   }
 }

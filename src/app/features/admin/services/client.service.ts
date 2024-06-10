@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environment";
 import { Client } from "../model/client.model";
+import { Order } from "../../../shared/model/order.model";
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class ClientService{
 
     GetClientsOrders()
     {
-        return this._http.get(this.getAllClientsOrders);
+        return this._http.get<any>(this.getAllClientsOrders);
     }
 
     DeleteClient(email:string)

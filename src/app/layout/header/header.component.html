@@ -22,7 +22,7 @@
       <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarResponsive">
         <ul class="navbar-nav  d-flex justify-content-start ">
             <li class="nav-item rounded-1 " style="background-color: #e7f5e8;"><a class="nav-link text-primary fw-light fs-6 " [routerLink]="['']">{{'header.Home'|translate}}</a></li>
-            <li class="nav-item"><a class="nav-link text-primary  " [routerLink]="['book']">{{'header.Waste'|translate}}</a></li>
+            <li class="nav-item"><a class="nav-link text-primary  " [routerLink]="['waste']">{{'header.Waste'|translate}}</a></li>
             <li class="nav-item"><a class="nav-link text-primary  " [routerLink]="['book']">{{'header.Book Now'|translate}}</a></li>
             <!-- <li>
               <select #select (change)="switchLanguage(select)">
@@ -284,9 +284,6 @@
         <div class="d-grid">
           <button type="submit" class="btn btn-primary" [disabled]="companyLoginForm.invalid">Login</button>
         </div>
-        <div class="text-center mt-3">
-          <a href="#" (click)="forgotPassword()">Forgot password?</a>
-        </div>
       </form>
       <div class="text-center mt-3">
         <p>or login with</p>
@@ -348,6 +345,49 @@
 </ng-template>
 
 
+  <ng-template #payment let-modal>
+    <div class="container">
+      <div class="card cart">
+        <label class="title">CHECKOUT</label>
+        <div class="steps">
+          <div class="step">
+            <div>
+              <span>SHIPPING</span>
+              <p>{{addressData.country}}, {{addressData.city}}</p>
+              <p>{{addressData.street}}</p>
+            </div>
+            <hr>
+            <!-- <div>
+              <span>PAYMENT METHOD</span>
+              <p>{{paymentMethod.shortName}}</p>
+              <p>{{paymentMethod.cost}}</p>
+            </div> -->
+            <!-- <hr> -->
+            <div class="payments">
+              <span>PAYMENT</span>
+              <div class="details">
+                <span>Subtotal:</span>
+                <span>${{cartServ.getTotalPrice()}}</span>
+                <!-- <span>Shipping:</span>
+                <span>${{deliveryMehtod.cost}}</span>
+                <span>Tax:</span>
+                <span>$30.40</span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card checkout">
+        <div class="footer">
+          <label class="price">${{cartServ.getTotalPrice()}}</label>
+          <button class="checkout-btn" (click)="pay()">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+
   <ng-template #login let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Login to your Account</h4>
@@ -374,9 +414,6 @@
         </div>
         <div class="d-grid">
           <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
-        </div>
-        <div class="text-center mt-3">
-          <a href="#" (click)="forgotPassword()">Forgot password?</a>
         </div>
       </form>
       <div class="text-center mt-3">

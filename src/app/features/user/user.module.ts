@@ -17,6 +17,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { WasteComponent } from './waste/waste.component';
 
 
 
@@ -26,7 +27,8 @@ import { MatInputModule } from '@angular/material/input';
   declarations: [
     HomeComponent,
     BookComponent,
-    CompanyRegisterComponent
+    CompanyRegisterComponent,
+    WasteComponent
   ],
   imports: [
     CommonModule,

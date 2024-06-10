@@ -1,1 +1,75 @@
-<p>client-order works!</p>
+<div class="container mt-4" *ngFor="let order of orders">
+    <h2>Order Details (Order ID: {{ order.id }})</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Buyer Email</th>
+          <th>Order Date</th>
+          <th>Status</th>
+          <th>Delivery Method</th>
+          <th>Delivery Method Cost</th>
+          <th>Sub Total</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.buyerEmail }}</td>
+          <td>{{ order.orderDate }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.deliveryMethod }}</td>
+          <td>{{ order.deliveryMethodCost }}</td>
+          <td>{{ order.subTotal }}</td>
+          <td>{{ order.total }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h3>Shipping Address</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Street</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ order.shippingAddress.firstName }}</td>
+          <td>{{ order.shippingAddress.lastName }}</td>
+          <td>{{ order.shippingAddress.city }}</td>
+          <td>{{ order.shippingAddress.country }}</td>
+          <td>{{ order.shippingAddress.street }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h3>Items</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Picture URL</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of order.items">
+          <td>{{ item.productId }}</td>
+          <td>{{ item.productName }}</td>
+          <td><img [src]="item.pictureURL" alt="Product Image" width="50"></td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.quantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+  </div>
+  

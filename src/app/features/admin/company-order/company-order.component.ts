@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Order } from '../../../shared/model/order.model';
 import { CompanyService } from '../services/company.service';
+import { Order } from '../client-order/client-order.component';
 
 @Component({
   selector: 'app-company-order',

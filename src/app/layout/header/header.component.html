@@ -22,8 +22,8 @@
       <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarResponsive">
         <ul class="navbar-nav  d-flex justify-content-start ">
             <li class="nav-item rounded-1 " style="background-color: #e7f5e8;"><a class="nav-link text-primary fw-light fs-6 " [routerLink]="['']">{{'header.Home'|translate}}</a></li>
-            <li class="nav-item"><a class="nav-link text-primary  " [routerLink]="['waste']">{{'header.Waste'|translate}}</a></li>
-            <li class="nav-item"><a class="nav-link text-primary  " [routerLink]="['book']">{{'header.Book Now'|translate}}</a></li>
+            <li class="nav-item"><a class="nav-link text-primary  " [state]="{data:'i'}" [routerLink]="['waste']">{{'header.Waste'|translate}}</a></li>
+            <li class="nav-item"><a class="nav-link text-primary  " [state]="{data:'i'}" [routerLink]="['book']">{{'header.Book Now'|translate}}</a></li>
             <!-- <li>
               <select #select (change)="switchLanguage(select)">
                 <option selected value="en">English</option>

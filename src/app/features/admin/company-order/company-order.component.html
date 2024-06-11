@@ -34,28 +34,28 @@
           <div class="mb-3">
             <label for="buyerEmail" class="form-label">Buyer Email</label>
             <input type="email" id="buyerEmail" formControlName="buyerEmail" class="form-control" />
-            <div *ngIf="orderForm.get('buyerEmail').invalid && orderForm.get('buyerEmail').touched" class="text-danger">
+            <div *ngIf="orderForm.get('buyerEmail')?.invalid" class="text-danger">
               Valid email is required.
             </div>
           </div>
           <div class="mb-3">
             <label for="status" class="form-label">Status</label>
             <input type="text" id="status" formControlName="status" class="form-control" />
-            <div *ngIf="orderForm.get('status').invalid && orderForm.get('status').touched" class="text-danger">
+            <div *ngIf="orderForm.get('status')?.invalid && orderForm.get('status')?.touched" class="text-danger">
               Status is required.
             </div>
           </div>
           <div class="mb-3">
             <label for="deliveryMethod" class="form-label">Delivery Method</label>
             <input type="text" id="deliveryMethod" formControlName="deliveryMethod" class="form-control" />
-            <div *ngIf="orderForm.get('deliveryMethod').invalid && orderForm.get('deliveryMethod').touched" class="text-danger">
+            <div *ngIf="orderForm.get('deliveryMethod')?.invalid && orderForm.get('deliveryMethod')?.touched" class="text-danger">
               Delivery method is required.
             </div>
           </div>
           <div class="mb-3">
             <label for="deliveryMethodCost" class="form-label">Delivery Method Cost</label>
             <input type="number" id="deliveryMethodCost" formControlName="deliveryMethodCost" class="form-control" />
-            <div *ngIf="orderForm.get('deliveryMethodCost').invalid && orderForm.get('deliveryMethodCost').touched" class="text-danger">
+            <div *ngIf="orderForm.get('deliveryMethodCost')?.invalid && orderForm.get('deliveryMethodCost')?.touched" class="text-danger">
               Delivery method cost must be a positive number.
             </div>
    

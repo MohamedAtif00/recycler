@@ -46,8 +46,8 @@
         <input id="name" class="form-control" formControlName="name" />
       </div>
       <div class="form-group">
-        <label for="pictureUrl">Picture URL</label>
-        <input id="pictureUrl" class="form-control" formControlName="pictureUrl" />
+        <label for="pictureUrl">Picture </label>
+        <input (change)="SelectedFile($event)" type="file" id="pictureUrl" class="form-control" formControlName="picture" />
       </div>
       <div class="form-group">
         <label for="price">Price</label>

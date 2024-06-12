@@ -319,7 +319,7 @@ export class HeaderComponent implements OnInit{
 
     this.modalServ.open(this.payment, { centered: true,windowClass:'custom-animation' });
         console.log(this.deliveryMehtod);
-        
+  
 
       // console.log(data);
       // this.cartServ.emptyCart();
@@ -344,6 +344,7 @@ export class HeaderComponent implements OnInit{
     ).subscribe(data=>{
       console.log(data);
       this.toaster.success('Payment Completed' ,'Successful');
+      this.cartServ.emptyCart();
     })
   }
 

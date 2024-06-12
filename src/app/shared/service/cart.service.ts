@@ -41,6 +41,8 @@ export class CartService
     constructor(private _http: HttpClient,private authServ:AuthService,private toastr:ToastrService) {
         _http.get<Basket>(this.getBusket).subscribe(data=>{
             this.Basket = data;
+            console.log('get basket',data);
+            
             this._productsSignal.set(data.items)
         })
 
@@ -68,7 +70,13 @@ export class CartService
               }
           });
   
-          this.Basket.items = this._productsSignal();
+          this.Basket.items = this._productsSignal()??[];
+
+          if (this.authServ.isCompany()) {
+            const totalQuantity = this.calculateTotalQuantity(this.Basket.items);
+            const commission = this.addCommision(totalQuantity);
+            this.applyCommission(commission);
+          }
           
           this._http.post<Basket>(this.CreateOrUpdate, this.Basket).subscribe({
               next: (response) => {
@@ -89,29 +97,50 @@ export class CartService
           (this._productsSignal).set(products);
       }
   }
+
+  private calculateTotalQuantity(items: Item[]): number {
+    return items.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  private addCommision(totalQuantity: number): number {
+    if (totalQuantity >= 10 && totalQuantity < 200) {
+      return 0.25;
+    } else if (totalQuantity >= 200 && totalQuantity < 400) {
+      return 0.3;
+    } else {
+      return 0.35;
+    }
+  }
+
+  private applyCommission(commission: number): void {
+    this.Basket.items = this.Basket.items.map(item => ({
+      ...item,
+      price: item.price + (item.price * commission)
+    }));
+  }
   
 
-    removeProduct(productName: string) {
-        this._productsSignal.update(products => {
-            const productIndex = products.findIndex(p => p.productName === productName);
-            if (productIndex !== -1) {
-            const updatedProducts = [...products];
-            const currentQuantity = updatedProducts[productIndex].quantity;
-            if (currentQuantity > 1) {
-                updatedProducts[productIndex] = {
-                ...updatedProducts[productIndex],
-                quantity: currentQuantity - 1
-                };
-                return updatedProducts;
-            } else {
-                return updatedProducts.filter(p => p.productName !== productName);
-            }
-            }
-            return products;
-        });
-        this.Basket.items = this._productsSignal()
-        this._http.post<Basket>(this.CreateOrUpdate,this.Basket).subscribe()
-    }
+  removeProduct(productName: string) {
+      this._productsSignal.update(products => {
+          const productIndex = products.findIndex(p => p.productName === productName);
+          if (productIndex !== -1) {
+          const updatedProducts = [...products];
+          const currentQuantity = updatedProducts[productIndex].quantity;
+          if (currentQuantity > 1) {
+              updatedProducts[productIndex] = {
+              ...updatedProducts[productIndex],
+              quantity: currentQuantity - 1
+              };
+              return updatedProducts;
+          } else {
+              return updatedProducts.filter(p => p.productName !== productName);
+          }
+          }
+          return products;
+      });
+      this.Basket.items = this._productsSignal()
+      this._http.post<Basket>(this.CreateOrUpdate,this.Basket).subscribe()
+  }
 
     removeWholeProduct(productName: string) {
         this._productsSignal.update(products => products.filter(p => p.productName !== productName));

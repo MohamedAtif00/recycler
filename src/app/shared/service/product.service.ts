@@ -24,8 +24,21 @@ export class    ProductService{
 
     CreateProduct(product:Product)
     {
+        console.log(product);
+        
+        let proForm:FormData = new FormData();
+        proForm.append('Id',product.id.toString())
+        proForm.append('Name',product.name)
+        proForm.append('Picture',<Blob>product.picture)
+        proForm.append('Price',product.price.toString())
+        proForm.append('Inventory',product.inventory.toString())
+        proForm.append('Category',product.category)
+        proForm.append('CategoryId',product.categoryId)
 
-        return this._http.put<Product>(this.createProduct,product)
+        console.log(proForm.get('Name'));
+        
+
+        return this._http.put<Product>(this.createProduct,proForm)
 
     }
 

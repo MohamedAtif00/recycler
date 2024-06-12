@@ -2,7 +2,7 @@ export interface Product {
     id: number;
     name: string;
     pictureUrl: string;
-    picture:string | null;
+    picture:Blob | File | null;
     category: string;
     categoryId:string;
     inventory:number;

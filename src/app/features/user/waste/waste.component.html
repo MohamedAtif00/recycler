@@ -6,14 +6,13 @@
         </div>
         <div class="container">
           <!-- Slider for waste types -->
-          <div class="container">
+          <div class="container  mb-5">
             <h2 class="text-center">We collect the following</h2>
             <p class="text-center">You should separate your waste according to our classification</p>
             <ngx-slick-carousel class="bekia-slider" #slickModal="slick-carousel" [config]="slideConfig">
-              <div ngxSlickItem *ngFor="let item of items" class="slide">
-                <div class="bekia-card text-center">
-                  <img [src]="item.pictureUrl" [alt]="item.pictureUrl"  style="width:30%;height: 30%;" class="img-fluid">
-                  <h3 class="name">{{item.productName}}</h3>
+              <div ngxSlickItem *ngFor="let item of items" class="slide" style="cursor: pointer;" (click)="GetProducts(item.id)">
+                <div class="bekia-card text-center d-flex align-items-center justify-content-center border border-3 mx-3" style="height: 100px;background-color: aliceblue;">
+                  <h3 class="name">{{item.name}}</h3>
                 </div>
               </div>
             </ngx-slick-carousel>
@@ -24,9 +23,9 @@
           <!-- Category items -->
           <div class="category-items">
             <div class="container-fluid grid-list-md">
-              <div class="layout d-flex gap-3 justify-content-center  wrap">
+              <div class="layout d-flex gap-3 justify-content-center  flex-wrap">
                 <!-- Use regular div elements for each category item -->
-                <div class="d-flex box-shadow  border gap-3 gx-4 border-3" *ngFor="let item of prodServ.products()">
+                <div class="d-flex box-shadow  border gap-3 gx-4 border-3" style="min-width: 150px;" *ngFor="let item of prodServ.products()">
                   <div>
                     <img [src]="item.pictureUrl" [alt]="item.name" style="width: 150px;background-color: white;" class="img-fluid">
                     <div class="v-card__title">{{ item.name }}</div>

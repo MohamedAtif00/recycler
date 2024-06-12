@@ -134,6 +134,11 @@ export class AuthService {
     return this.stateItem.value?.role  == 'admin'
   }
 
+  isCompany()
+  {
+    return this.stateItem.value?.role == 'company'
+  }
+
   getAuthToken(): string | null {
     return this.stateItem.value ? this.stateItem.value.token : null;
   }

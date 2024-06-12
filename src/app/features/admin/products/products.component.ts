@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit{
 
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      pictureUrl: ['', Validators.required],
+      picture: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
       inventory: [0, [Validators.required, Validators.min(0)]],
       category: ['', Validators.required]
@@ -131,7 +131,8 @@ export class ProductsComponent implements OnInit{
         ).subscribe(data => {
           let product: Product = <Product>this.productForm.value;
           product.id = this.getMaxId() + 1;
-          
+          product.picture = this.fileBlob
+
           if (this.selectedCategory) {
             product.category = this.selectedCategory.name;
             product.categoryId = this.selectedCategory.id.toString();
@@ -155,7 +156,7 @@ export class ProductsComponent implements OnInit{
         let updateProduct:Product =  {
                           ...this.selectedProduct,
                           name: this.productForm.value.name,
-                          pictureUrl: this.productForm.value.pictureUrl,
+                          picture: this.productForm.value.picture,
                           price: this.productForm.value.price,
                           inventory: this.productForm.value.inventory,
                           category: this.productForm.value.category
@@ -223,6 +224,34 @@ export class ProductsComponent implements OnInit{
     }
   }
 
+
+  selectedFile: File | null = null;
+  fileBlob: Blob | null = null;
+
+  SelectedFile(event:Event)
+  { 
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.convertFileToBlob(this.selectedFile).then(blob => {
+        this.fileBlob = blob;
+      }).catch(error => {
+        console.error('Error converting file to Blob:', error);
+      });
+    }
+  }
+
+  private convertFileToBlob(file: File): Promise<Blob> {
+    return new Promise<Blob>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const arrayBuffer = reader.result as ArrayBuffer;
+        resolve(new Blob([arrayBuffer], { type: file.type }));
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(file);
+    });
+  }
 
   getProduct()
   {

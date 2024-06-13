@@ -61,7 +61,7 @@ export class CategoryComponent implements OnInit{
           });
         }
       // Handle the save action (e.g., send the form data to the server)
-      this.categoryServ.CreateCategory({id:this.getMaxId()+1,name:this.categoryForm.value.categoryName}).subscribe(data=>{
+      this.categoryServ.CreateCategory({name:this.categoryForm.value.categoryName}).subscribe(data=>{
         if(data)
           {
             this.toastr.success('Category Created successfully','succeess');

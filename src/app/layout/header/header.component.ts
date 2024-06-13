@@ -264,7 +264,7 @@ export class HeaderComponent implements OnInit{
   {
     if (this.companyLoginForm.valid) {
       let request:LoginRequest = this.companyLoginForm.value
-      this.authService.login(request).subscribe(
+      this.authService.CompanyLogin(request).subscribe(
         (response) => {
           console.log('Login successful', response);
           // Handle successful registration, e.g., update UI, close modal, etc.
@@ -331,6 +331,21 @@ export class HeaderComponent implements OnInit{
     this.toaster.success('Order has made successfully ','success');
   }
 
+  deliverySelected(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedValue = selectElement.value;
+    console.log('Selected Delivery Method ID:', selectedValue);
+
+    // Find the selected delivery method
+    const selectedMethod = this.cartServ.deliveryMethods.find(method => method.id.toString() === selectedValue);
+    
+    if (selectedMethod) {
+      console.log('Selected Delivery Method Cost:', selectedMethod.cost);
+      this.cartServ.cost = selectedMethod.cost
+    } else {
+      console.log('Delivery method not found');
+    }
+  }
 
   pay()
   {

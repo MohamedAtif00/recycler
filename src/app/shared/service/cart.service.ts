@@ -30,6 +30,7 @@ export class CartService
     private _productsSignal:WritableSignal<Item[]>= signal<Item[]>([]);
     deliveryMethods!:DeliveryMethod[];
   
+    cost!:number;
     cart = computed(() => ({
         products: this._productsSignal()??[]
     }));
@@ -144,6 +145,8 @@ export class CartService
 
     removeWholeProduct(productName: string) {
         this._productsSignal.update(products => products.filter(p => p.productName !== productName));
+        this.Basket.items = this._productsSignal()
+        this._http.post<Basket>(this.CreateOrUpdate,this.Basket).subscribe()
     }
 
     emptyCart() {
@@ -178,7 +181,6 @@ export class CartService
     if(this.cart().products)
       {
         return this.cart().products.reduce((total, product) => total + (product.price * product.quantity), 0);
-
       }
       return 0
     }
@@ -194,6 +196,8 @@ export class CartService
   
       return this.authServ.stateItem$.pipe(
         switchMap(data => {
+          console.log(data?.role);
+          
           if (data?.role === 'user') {
             return this._http.post<any>(this.createOrder, order).pipe(
               tap(() => {

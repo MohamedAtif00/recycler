@@ -302,14 +302,15 @@
     <div class="modal-body">
         <form [formGroup]="addressForm" (ngSubmit)="CreateOrder()">
 
-            <div class="form-group">
-                <label for="deliveryMethodId">Delivery Method</label>
-                <select class="form-control" id="deliveryMethodId" formControlName="deliveryMethodId">
-                    <option *ngFor="let method of cartServ.deliveryMethods" [value]="method.id">
-                        {{method.shortName}} - {{method.description}} ({{method.deliveryTime}} - ${{method.cost}})
-                    </option>
-                </select>
-            </div>
+          <div class="form-group">
+            <label for="deliveryMethodId">Delivery Method</label>
+            <select class="form-control" (change)="deliverySelected($event)" id="deliveryMethodId" formControlName="deliveryMethodId">
+              <option *ngFor="let method of cartServ.deliveryMethods" [value]="method.id">
+                {{method.shortName}} - {{method.description}} ({{method.deliveryTime}} - ${{method.cost}})
+              </option>
+            </select>
+          </div>
+          
 
             <div formGroupName="shipAddress">
                 <div class="form-group">
@@ -367,7 +368,7 @@
               <span>PAYMENT</span>
               <div class="details">
                 <span>Subtotal:</span>
-                <span>${{cartServ.getTotalPrice()}}</span>
+                <span>${{cartServ.getTotalPrice() + cartServ.cost}}</span>
                 <!-- <span>Shipping:</span>
                 <span>${{deliveryMehtod.cost}}</span>
                 <span>Tax:</span>
@@ -380,7 +381,7 @@
     
       <div class="card checkout">
         <div class="footer">
-          <label class="price">${{cartServ.getTotalPrice()}}</label>
+          <label class="price">${{cartServ.getTotalPrice() + cartServ.cost}}</label>
           <button class="checkout-btn" (click)="pay()">Checkout</button>
         </div>
       </div>

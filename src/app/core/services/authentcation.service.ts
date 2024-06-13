@@ -54,7 +54,9 @@ export class AuthService {
       map((response: IAuthInfo) => {
         response.role = 'company';
         this.setAuthInfoToStorage(response);
-        this.stateItem.next(response);
+        this.stateItem.next({...response,role:'company'});
+        console.log(this.stateItem);
+        
         this.stateItem$ = this.stateItem.asObservable();
         return response;
       }),

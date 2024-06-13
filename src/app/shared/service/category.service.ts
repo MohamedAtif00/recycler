@@ -22,7 +22,7 @@ export class CategoryService{
         return this._http.get<Category[]>(this.getAllCategories)
     }
 
-    CreateCategory(request:Category)
+    CreateCategory(request:any)
     {
         return this._http.put<Category>(this.createCategory,request);
     }

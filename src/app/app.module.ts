@@ -51,7 +51,8 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
       {
         closeButton:true,
         preventDuplicates:true
-      }
+      },
+      
     ),
     TranslateModule.forRoot({
       loader: {

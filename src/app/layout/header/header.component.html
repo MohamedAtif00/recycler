@@ -348,6 +348,7 @@
 
   <ng-template #payment let-modal>
     <div class="container">
+      <form action="" [formGroup]="paymentForm" (ngSubmit)="pay()">
       <div class="card cart">
         <label class="title">CHECKOUT</label>
         <div class="steps">
@@ -358,11 +359,22 @@
               <p>{{addressData.street}}</p>
             </div>
             <hr>
-            <!-- <div>
-              <span>PAYMENT METHOD</span>
-              <p>{{paymentMethod.shortName}}</p>
-              <p>{{paymentMethod.cost}}</p>
-            </div> -->
+            <div class="form-group">
+              <label for="cardNumber">Card Number</label>
+              <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number">
+          </div>
+          <div class="form-group">
+              <label for="expDate">Expiration Date</label>
+              <input type="text" class="form-control" id="expDate" placeholder="MM/YY">
+          </div>
+          
+              
+              <hr>
+              <!-- <div>
+                <span>PAYMENT METHOD</span>
+                <p>{{paymentMethod.shortName}}</p>
+                <p>{{paymentMethod.cost}}</p>
+              </div> -->
             <!-- <hr> -->
             <div class="payments">
               <span>PAYMENT</span>
@@ -378,13 +390,14 @@
           </div>
         </div>
       </div>
-    
+      
       <div class="card checkout">
         <div class="footer">
-          <label class="price">${{cartServ.getTotalPrice() + cartServ.cost}}</label>
-          <button class="checkout-btn" (click)="pay()">Checkout</button>
+          <label class="price">${{authService.isCompany()? cartServ.getTotalPrice() + cartServ.cost:cartServ.getTotalPrice() - cartServ.cost}}</label>
+          <button type="submit" class="checkout-btn" (click)="pay()">Checkout</button>
         </div>
       </div>
+    </form>
     </div>
   </ng-template>
 

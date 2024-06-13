@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError, of, pipe } from 'rxjs';
 import { Address } from '../../shared/model/address.model';
 import { DeliveryMethod } from '../../shared/model/delivery-method.model';
+import { StripeCardElement, StripeCardElementOptions, loadStripe, Stripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-header',
@@ -38,6 +39,25 @@ export class HeaderComponent implements OnInit{
   paymentMethod!:DeliveryMethod;
   deliveryMehtod!:DeliveryMethod;
 
+
+  stripe!:Stripe|null;
+  stripePromise = loadStripe('pk_test_51N09jZClXrobMCLF4sidJFsBltRf2mPDVas9ageLvAWC8vByoU1mlOUGnGzkxiRmMNJP3oLdaVMHyKi1lqorejhW00BbVIiwbx');
+  paymentForm!:FormGroup;
+  card!:StripeCardElement|undefined;
+  cardOptions:StripeCardElementOptions = {
+    style:{
+      base:{
+        iconColor: '#666EE8',
+        color:'#31325F',
+        fontWeight:'300',
+        fontFamily:'"Helvetica Neue" ,Helvetica , sans-serif',
+        fontSize:'18px',
+        '::placeholder':{
+          color:'#CFD7E0'
+        }
+      }
+    }
+  }
 
   currentLang!: string;
   //totalOrders:number = computed();
@@ -98,6 +118,8 @@ export class HeaderComponent implements OnInit{
       password: ['', Validators.required]
     });
 
+    this.setupCardElement()
+
     this.companyLoginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -124,7 +146,10 @@ export class HeaderComponent implements OnInit{
       })
     });
   
-
+    // PaymentForm 
+    this.paymentForm = this.fb.group({
+      name:['',Validators.required]
+    })
 
 
     this.authService.stateItem$.subscribe(data => {
@@ -363,6 +388,39 @@ export class HeaderComponent implements OnInit{
     })
   }
 
+
+  async setupCardElement() {
+    this.stripe = await loadStripe('pk_test_51N09jZClXrobMCLF4sidJFsBltRf2mPDVas9ageLvAWC8vByoU1mlOUGnGzkxiRmMNJP3oLdaVMHyKi1lqorejhW00BbVIiwbx');
+
+      const elements = this.stripe?.elements();
+
+    this.card = elements?.create('card');
+
+  }
+
+
+  // async payProcess() {
+  //   try {
+  //     // Replace with your backend API to create a Stripe session and return the session ID
+  //     const response = await fetch('/create-checkout-session', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ token }),
+  //     });
+
+  //     const session = await response.json();
+  //     if (session.id) {
+  //       // Redirect to Stripe Checkout
+  //       await this.stripe?.redirectToCheckout({ sessionId: session.id });
+  //     } else {
+  //       console.error('Session creation failed:', session);
+  //     }
+  //   } catch (error) {
+  //     console.error('Payment processing error:', error);
+  //   }
+  // }
 
   get fullName() {
     return this.registerForm.get('FullName');

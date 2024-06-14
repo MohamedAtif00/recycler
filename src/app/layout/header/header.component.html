@@ -380,7 +380,7 @@
               <span>PAYMENT</span>
               <div class="details">
                 <span>Subtotal:</span>
-                <span>${{cartServ.getTotalPrice() + cartServ.cost}}</span>
+                <span>${{authService.isCompany()? cartServ.getTotalPrice() + cartServ.cost:cartServ.getTotalPrice() - cartServ.cost}}</span>
                 <!-- <span>Shipping:</span>
                 <span>${{deliveryMehtod.cost}}</span>
                 <span>Tax:</span>

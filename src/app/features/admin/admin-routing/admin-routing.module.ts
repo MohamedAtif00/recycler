@@ -10,6 +10,7 @@ import { AdminAuthGuard } from '../../../core/guard/admin.canactivate.guard';
 import { UsersComponent } from '../users/users.component';
 import { CompaniesComponent } from '../companies/companies.component';
 import { ClientOrderComponent } from '../client-order/client-order.component';
+import { CompanyOrderComponent } from '../company-order/company-order.component';
 
 const routes:Routes = [
   {path:'',component:HomeComponent,children:[
@@ -18,7 +19,7 @@ const routes:Routes = [
     {path:'users',component:UsersComponent},
     {path:'companies',component:CompaniesComponent},
     {path:'clients-orders',component:ClientOrderComponent},
-    {path:'companies-orders',component:ClientOrderComponent},
+    {path:'companies-orders',component:CompanyOrderComponent},
   ],
   canActivate:[AdminAuthGuard]},
 
